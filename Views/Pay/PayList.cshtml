@@ -1,0 +1,171 @@
+﻿@model SparkCogingChallenge.Models.Pay
+@{
+    ViewBag.Title = "PayList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (ViewBag.messsage != null)
+    {
+        switch (ViewBag.messsage)
+        {
+            case "Add":
+                <script>alert('Register Added!')</script>
+                break;
+            case "Delete":
+                <script>alert('Register Deleted!')</script>
+                break;
+            case "Modify":
+                <script>alert('Register Modify!')</script>
+                break;
+            case "Duplicate":
+                <script>alert('Register Duplicate, no action can be taken!')</script>
+                break;
+        }
+
+    }
+}
+
+<h2>Pay List</h2>
+
+<fieldset>
+    <button type="button"
+            name="btnAdd"
+            id="btnAdd"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#PayForm">
+        Add Pay
+    </button>
+</fieldset>
+
+<div id="ListPay">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Concept</th>
+                <th>Cost</th>
+                <th>Creation</th>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (SparkCogingChallenge.Models.Pay item in ViewBag.PayList)
+                {
+                        <tr>
+                            <td>@item.Id_pay</td>
+                            <td>@item.Concept</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.CreationDate</td>
+                            <td>@item.User.Username</td>
+                            <td>
+                                <a href=""
+                                   onclick="javascript:deleteLoad('@item.Id_pay','@item.Concept','@item.Quantity','@item.Id_user')"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#PayForm"
+                                   class="btn btn-danger">
+                                    Delete
+                                </a>
+                                <a href=""
+                                   onclick="javascript:modifyLoad('@item.Id_pay','@item.Concept','@item.Quantity','@item.Id_user')"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#PayForm"
+                                   class="btn btn-warning">
+                                    Modify
+                                </a>
+                            </td>
+                        </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Pay -->
+<div class="modal fade" id="PayForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAddPay">Pay Module Register</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("PayList", "Pay", FormMethod.Post, htmlAttributes: new { id = "PayForm" }))
+                {
+                    @Html.Label("Id", htmlAttributes: new { @class = "label label -danger" })<br />
+                    @Html.TextBoxFor(i => i.Id_pay, htmlAttributes: new { @class = "form-control", @id = "txtId", @readonly = "true" })<br />
+
+                    @Html.LabelFor(i => i.Concept, htmlAttributes: new { @class = "label label -danger" })<br />
+                    @Html.TextBoxFor(i => i.Concept, htmlAttributes: new { @class = "form-control", @id = "txtConcept" })<br />
+
+                    @Html.Label("Cost", htmlAttributes: new { @class = "label label -danger" })<br />
+                    @Html.TextBoxFor(i => i.Quantity, htmlAttributes: new { @class = "form-control", type = "number", @id = "txtQuantity" })<br />
+
+                    @Html.Label("Username", htmlAttributes: new { @class = "label label -danger" })<br />
+                    @Html.DropDownListFor(i => i.Id_user, (IEnumerable<SelectListItem>)ViewBag.UserList, htmlAttributes: new { @class = "form-control", @id = "txtUser" })<br />
+
+                    <input type="hidden" id="delete" name="delete" value="" />
+                    <input type="hidden" id="modify" name="modify" value="" />
+
+                    <div class="modal-footer">
+                        <input type="submit" name="button" value="Save" id="btnSave" class="btn btn-success" />
+                        <input type="submit" onclick="javascript:deleteConfirm()" name="button" value="Delete" id="btnDelete" class="btn btn-danger" />
+                        <input type="submit" onclick="javascript:modifyConfirm()" name="button" value="Modify" id="btnModify" class="btn btn-warning" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteLoad(Id_pay, Concept, Quantity, Id_user) {
+        document.getElementById("txtId").value = Id_pay;
+        document.getElementById("txtConcept").value = Concept;
+        document.getElementById("txtQuantity").value = Quantity;
+        document.getElementById("txtUser").value = Id_user;
+
+        $("#btnDelete").show();
+        $("#btnModify").hide();
+        $("#btnSave").hide();
+    }
+    function deleteConfirm() {
+        if (confirm("Do you want to delete the register?")) {
+            document.getElementById("delete").value = "Yes";
+        }
+        else {
+            document.getElementById("delete").value = "No";
+        }
+    }
+    function modifyLoad(Id_pay, Concept, Quantity, Id_user) {
+        console.log("Id_pay=" + Id_pay)
+        document.getElementById("txtId").value = Id_pay;
+        document.getElementById("txtConcept").value = Concept;
+        document.getElementById("txtQuantity").value = Quantity;
+        document.getElementById("txtUser").value = Id_user;
+
+        $("#btnDelete").hide();
+        $("#btnModify").show();
+        $("#btnSave").hide();
+    }
+    function modifyConfirm() {
+        if (confirm("Do you want modify the register?")) {
+            document.getElementById("modify").value = "Yes";
+        }
+        else {
+            document.getElementById("modify").value = "No";
+        }
+    }
+
+    $(document).ready(function () {
+        $("#btnAdd").on("click", function () {
+            $("#btnDelete").hide();
+            $("#btnModify").hide();
+            $("#btnSave").show();
+        });
+    });
+</script>

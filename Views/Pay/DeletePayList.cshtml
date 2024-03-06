@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SparkCogingChallenge.Models.Pay>
+
+@{
+    ViewBag.Title = "DeletePayList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Module</h2>
+
+@using (Html.BeginForm("DeletePayList", "Pay", FormMethod.Post))
+{
+<p>
+    <input type="submit" 
+           value="Delete Selected Registers" 
+           onclick="return confirm('Are you sure you wish to delete selected registers?');" 
+           class="btn btn-danger" />
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Id")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Concept)
+        </th>
+        <th>
+            @Html.DisplayName("Cost")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayName("User")
+        </th>
+        <th>
+            @Html.DisplayName("Select Registers")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_pay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Concept)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Username)
+            </td>
+            <td>
+                <input type="checkbox" name="ids" value="@item.Id_pay" />
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+}

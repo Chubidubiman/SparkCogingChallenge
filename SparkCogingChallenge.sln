@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkCogingChallenge", "SparkCogingChallenge.csproj", "{AC70496A-155B-41EB-8613-9BB0D68351D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{3D1322E3-796F-489E-B606-BBA99F1E5BA2}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC70496A-155B-41EB-8613-9BB0D68351D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC70496A-155B-41EB-8613-9BB0D68351D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC70496A-155B-41EB-8613-9BB0D68351D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC70496A-155B-41EB-8613-9BB0D68351D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B007D74B-46FA-4B89-924A-E38DE58CD232}
+	EndGlobalSection
+EndGlobal

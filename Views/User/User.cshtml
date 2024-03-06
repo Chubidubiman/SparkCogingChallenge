@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SparkCogingChallenge.Models.User>
+
+@{
+    ViewBag.Title = "Add new Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users</h2>
+
+@using (Html.BeginForm("User", "User", FormMethod.Post))
+{
+    <p>
+        <input type="submit"
+               value="Create New Automatic User"
+               class="btn btn-info" />
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
